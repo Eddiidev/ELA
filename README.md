@@ -25,5 +25,5 @@ List of commands :
 - /hugduration (Duration): Set the approximate time between grab and release (in milliseconds). Cannot be shorter than a second. Setting negative numbers disables auto-release.
 - /hugstatus: Provides the current auto-hug list and duration.
 
-Credits and thanks to Littlesera (LSCG), bananarama92 (MBS), tetris245 (ULTRAbc) for making wonderful addons with readable code that greatly helped me make this one!
+Credits and thanks to Littlesera (LSCG), bananarama92 (MBS), tetris245 (ULTRAbc) for making wonderful addons with readable code that greatly helped me make this one! (Have yoinked some code from these 3 addons to make this all work!)
   
