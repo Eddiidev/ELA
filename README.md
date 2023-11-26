@@ -1,6 +1,9 @@
 # Eddii's Little Additions
+
 A small addon meant to contain the small things I wanted to add to the game~.
+
 **DISCLAIMER :** Currently in very early stage of development, crashes, errors and bugs are to be expected. **USE AT YOUR OWN RISK**
+
 **Will not work properly if not also using LSCG : https://github.com/littlesera/LSCG**
 
 That being said, there is currently only 1 feature : An auto-hug feature !
