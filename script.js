@@ -1,4 +1,4 @@
-const ELA_VERSION = "0.1INDEV";
+const ELA_VERSION = "0.1.1INDEV";
 
 window.LoadedError = class extends Error {};
 if (window.ELA_VERSION) {
@@ -473,8 +473,8 @@ var bcModSDK = (function () {
 
   function pushSettings() {
     settings = {"autoHuggedMembers" : autoHuggedMembers, "hugDelay" : hugDelay}
-    data = {"ExtensionSettings.ELA" : JSON.stringify(settings)}
-    ServerAccountUpdate.QueueData(data)
+    Player.ExtensionSettings.ELA = JSON.stringify(settings);
+    ServerPlayerExtensionSettingsSync("ELA");
   }
   // Thanks MBS
   function settingsLoaded() {
