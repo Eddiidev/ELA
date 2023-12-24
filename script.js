@@ -1,4 +1,4 @@
-const ELA_VERSION = "0.1.1INDEV";
+const ELA_VERSION = "0.2INDEV";
 
 window.LoadedError = class extends Error {};
 if (window.ELA_VERSION) {
@@ -399,6 +399,18 @@ var bcModSDK = (function () {
     next(args);
     return;
   })
+  
+  modApi.hookFunction("AnimationRequestDraw", 4, (args, next) => {
+    if (animationLimit == "ENABLED") {return;}
+    if (animationLimit == "LIMITED") {
+      if ((CommonTime() - lastAnimationUpdate) > 500) {
+      lastAnimationUpdate = CommonTime()
+      } 
+      else {return;}
+    }
+    next(args);
+    return;
+  })
 
   function makeHugPacket(target) {
     return {
@@ -466,13 +478,14 @@ var bcModSDK = (function () {
       settings = JSON.parse(Player.ExtensionSettings.ELA)
       autoHuggedMembers = settings["autoHuggedMembers"]
       hugDelay = settings["hugDelay"]
+      animationLimit = settings["animationLimit"]
     } else {
       pushSettings()
     }
   }
 
   function pushSettings() {
-    settings = {"autoHuggedMembers" : autoHuggedMembers, "hugDelay" : hugDelay}
+    settings = {"autoHuggedMembers" : autoHuggedMembers, "hugDelay" : hugDelay, "animationLimit": animationLimit}
     Player.ExtensionSettings.ELA = JSON.stringify(settings);
     ServerPlayerExtensionSettingsSync("ELA");
   }
@@ -486,6 +499,9 @@ var bcModSDK = (function () {
 
   var autoHuggedMembers = []
   var hugDelay = 8000
+  var animationLimit = "DISABLED"
+  var lastAnimationUpdate = CommonTime()
+
   waitFor(settingsLoaded).then(() => {
     getSettings()
   })
@@ -563,6 +579,24 @@ var bcModSDK = (function () {
             }
   }])
 
+  CommandCombine([{
+    Tag: 'animationlimit',
+    Description: "enabled/limited/disabled: When enabled, disables animations from restraints almost completely. Limited allows for 2 updates/second, Disabled is normal behavior.",
+    Action: (args) => {
+            if (["ENABLED", "LIMITED", "DISABLED"].includes(args.toUpperCase())) {
+                ChatRoomSendLocal("<p style='background-color:#AAFFFF'>[ELA] Changed the animation limit to " + args.toLowerCase() + ".</p>")
+                animationLimit = args.toUpperCase()
+                pushSettings()
+                return
+            }
+            if (args == "") {
+              ChatRoomSendLocal("Animation Limit : " + animationLimit)
+              return
+            }
+          
+            ChatRoomSendLocal("<p style='background-color:#FF4040'>[ELA] Couldn't understand the animation limit status entered.</p>")
+          }
+  }])
   async function waitFor(func, cancelFunc = () => false) {
     while (!func()) {
       if (cancelFunc()) return false;
