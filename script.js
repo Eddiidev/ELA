@@ -1,4 +1,4 @@
-const ELA_VERSION = "0.2INDEV";
+const ELA_VERSION = "0.2.1INDEV";
 
 window.LoadedError = class extends Error {};
 if (window.ELA_VERSION) {
@@ -512,15 +512,15 @@ var bcModSDK = (function () {
     Action: (args) => {
             member = parseInt(args)
             if (isNaN(member) || member == 0 || args == "") {
-                ChatRoomSendLocal("<p style='background-color:#FF4040'>[ELA] Couldn't understand the member number.</p>")
+                ChatRoomSendLocal("<p style='background-color:#FF4040;color:#000000'>[ELA] Couldn't understand the member number.</p>")
                 return
             }
             else if (autoHuggedMembers.includes(member)) {
-              ChatRoomSendLocal("<p style='background-color:#AAFFFF'>[ELA] " + member.toString() + " already in the Auto-Hug list.</p>")      
+              ChatRoomSendLocal("<p style='background-color:#AAFFFF;color:#000000'>[ELA] " + member.toString() + " already in the Auto-Hug list.</p>")      
               return
             }
             autoHuggedMembers.push(member)
-            ChatRoomSendLocal("<p style='background-color:#AAFFFF'>[ELA] Added " + member.toString() + " to the Auto-Hug list.</p>")
+            ChatRoomSendLocal("<p style='background-color:#AAFFFF;color:#000000'>[ELA] Added " + member.toString() + " to the Auto-Hug list.</p>")
             pushSettings()
           }
   }])
@@ -530,11 +530,11 @@ var bcModSDK = (function () {
     Action: (args) => {
             member = parseInt(args)
             if (isNaN(member) || member == 0 || args == "" || !autoHuggedMembers.includes(member)) {
-                ChatRoomSendLocal("<p style='background-color:#FF4040'>[ELA] Couldn't understand the member number or member not in the list.</p>")
+                ChatRoomSendLocal("<p style='background-color:#FF4040;color:#000000'>[ELA] Couldn't understand the member number or member not in the list.</p>")
                 return
             }
             autoHuggedMembers.splice(autoHuggedMembers.indexOf(member), 1)
-            ChatRoomSendLocal("<p style='background-color:#AAFFFF'>[ELA] Removed " + member.toString() + " from the Auto-Hug list.</p>")
+            ChatRoomSendLocal("<p style='background-color:#AAFFFF;color:#000000'>[ELA] Removed " + member.toString() + " from the Auto-Hug list.</p>")
             pushSettings()
           }
   }])
@@ -545,12 +545,12 @@ var bcModSDK = (function () {
     Action: (args) => {
             delay = parseInt(args)
             if (isNaN(delay) || args == "") {
-                ChatRoomSendLocal("<p style='background-color:#FF4040'>[ELA] Couldn't understand the entered delay.</p>")
+                ChatRoomSendLocal("<p style='background-color:#FF4040;color:#000000'>[ELA] Couldn't understand the entered delay.</p>")
                 return
             }
             if (delay < 0) {
                 hugDelay = -1
-                ChatRoomSendLocal("<p style='background-color:#AAFFFF'>[ELA] Disabled auto-release.</p>")
+                ChatRoomSendLocal("<p style='background-color:#AAFFFF;color:#000000'>[ELA] Disabled auto-release.</p>")
                 pushSettings()
                 return;
 
@@ -559,7 +559,7 @@ var bcModSDK = (function () {
                 delay = 1000
             }
             hugDelay = delay
-            ChatRoomSendLocal("<p style='background-color:#AAFFFF'>[ELA] Set hug duration to " + hugDelay.toString() + " ms.</p>")
+            ChatRoomSendLocal("<p style='background-color:#AAFFFF;color:#000000'>[ELA] Set hug duration to " + hugDelay.toString() + " ms.</p>")
             pushSettings()
             return;
             }
@@ -584,7 +584,7 @@ var bcModSDK = (function () {
     Description: "enabled/limited/disabled: When enabled, disables animations from restraints almost completely. Limited allows for 2 updates/second, Disabled is normal behavior.",
     Action: (args) => {
             if (["ENABLED", "LIMITED", "DISABLED"].includes(args.toUpperCase())) {
-                ChatRoomSendLocal("<p style='background-color:#AAFFFF'>[ELA] Changed the animation limit to " + args.toLowerCase() + ".</p>")
+                ChatRoomSendLocal("<p style='background-color:#AAFFFF;color:#000000'>[ELA] Changed the animation limit to " + args.toLowerCase() + ".</p>")
                 animationLimit = args.toUpperCase()
                 pushSettings()
                 return
@@ -594,7 +594,7 @@ var bcModSDK = (function () {
               return
             }
           
-            ChatRoomSendLocal("<p style='background-color:#FF4040'>[ELA] Couldn't understand the animation limit status entered.</p>")
+            ChatRoomSendLocal("<p style='background-color:#FF4040;color:#000000'>[ELA] Couldn't understand the animation limit status entered.</p>")
           }
   }])
   async function waitFor(func, cancelFunc = () => false) {
