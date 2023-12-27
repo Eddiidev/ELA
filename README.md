@@ -22,6 +22,7 @@ Futuristic Crates turns your game into a 5 fps slideshow? Here comes the animati
 
 List of commands :
 - /hugadd (Member Number): Add the specified member to be hugged on sight.
+- /hugadd (Member Number): Add the specified member to be hugged on sight, but only once.
 - /hugremove (Member Number): Remove the specified member from the auto-hug list.
 - /hugduration (Duration): Set the approximate time between grab and release (in milliseconds). Cannot be shorter than a second. Setting negative numbers disables auto-release.
 - /hugstatus: Provides the current auto-hug list and duration.
