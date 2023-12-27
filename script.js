@@ -543,10 +543,17 @@ var bcModSDK = (function () {
                 return
             }
             else if (autoHuggedMembers.includes(member)) {
+              if (hugOnceMembers.includes(member)) {
+                hugOnceMembers.splice(hugOnceMembers.indexOf(member), 1)
+                ChatRoomSendLocal("<p style='background-color:#AAFFFF;color:#000000'>[ELA] " + member.toString() + " removed from the Hug Once list, still to be hugged on sight.</p>")  
+                pushSettings()
+                return
+              }
               ChatRoomSendLocal("<p style='background-color:#AAFFFF;color:#000000'>[ELA] " + member.toString() + " already in the Auto-Hug list.</p>")      
               return
             }
             autoHuggedMembers.push(member)
+            
             ChatRoomSendLocal("<p style='background-color:#AAFFFF;color:#000000'>[ELA] Added " + member.toString() + " to the Auto-Hug list.</p>")
             pushSettings()
           }
