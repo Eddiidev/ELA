@@ -1,4 +1,4 @@
-const ELA_VERSION = "0.2.2INDEV";
+const ELA_VERSION = "0.2.3INDEV";
 
 window.LoadedError = class extends Error {};
 if (window.ELA_VERSION) {
@@ -426,7 +426,7 @@ var bcModSDK = (function () {
             { Tag: "Beep", Text: "msg" },
             { Tag: "Biep", Text: "msg" },
             { Tag: "Sonner", Text: "msg" },
-            { Tag: "msg", Text: CharacterNickname(Player) + " jumps on " + target.dn + " for a big hug."}
+            { Tag: "msg", Text: CharacterNickname(Player) + " jumps on " + CharacterNickname(target) + " for a big hug."}
         ]
     }   
   }
