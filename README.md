@@ -21,12 +21,13 @@ Jump on your desired targets and grab them for a big hug when they enter the roo
 Futuristic Crates turns your game into a 5 fps slideshow? Here comes the animation limiter! 
 
 List of commands :
-- /hugadd (Member Number): Add the specified member to be hugged on sight.
-- /hugonce (Member Number): Add the specified member to be hugged on sight, but only once.
-- /hugremove (Member Number): Remove the specified member from the auto-hug list.
-- /hugduration (Duration): Set the approximate time between grab and release (in milliseconds). Cannot be shorter than a second. Setting negative numbers disables auto-release.
-- /hugstatus: Provides the current auto-hug list and duration.
-- /animationlimit enabled/limited/disabled: When enabled, disables animations from restraints almost completely. Limited allows for 2 updates/second, Disabled is normal behavior.
+* /hugadd (Member Number): Add the specified member to be hugged on sight.
+* /hugonce (Member Number): Add the specified member to be hugged on sight, but only once.
+* /hugremove (Member Number): Remove the specified member from the auto-hug list.
+* /hugduration (Duration): Set the approximate time between grab and release (in milliseconds). Cannot be shorter than a second. Setting negative numbers disables auto-release.
+* /hugstatus: Provides the current auto-hug list and duration.
+* /animationlimit enabled/limited/disabled: When enabled, disables animations from restraints almost completely. Limited allows for 2 updates/second, Disabled is normal behavior.
 
-Credits and thanks to Littlesera (LSCG), bananarama92 (MBS), tetris245 (ULTRAbc) for making wonderful addons with readable code that greatly helped me make this one! (Have yoinked some code from these 3 addons to make this all work!)
+Credits and thanks to Littlesera (LSCG), bananarama92 (MBS), tetris245 (ULTRAbc) for making wonderful addons with readable code that greatly helped me make this one! (Have yoinked some code from these 3 addons to make this all work!) 
+Thanks aswell to dDeepLb (Responsive, Themed) for their helpful input and advice for the addon!
   
