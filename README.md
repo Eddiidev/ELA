@@ -16,9 +16,10 @@ Or
 javascript:(()=>{fetch('https://eddiidev.github.io/ELA/script.js').then(r=>r.text()).then(r=>eval(r));})();
 ```
 
-That being said, there is currently only 2 feature : An auto-hug feature, and an animation limiter!
+That being said, there is currently only 3 feature : An auto-hug feature, an animation limiter, and a patch for menu lags!
 Jump on your desired targets and grab them for a big hug when they enter the room!
-Futuristic Crates turns your game into a 5 fps slideshow? Here comes the animation limiter! 
+Futuristic Crates turns your game into a 5 fps slideshow? Here comes the animation limiter!
+Tired to wait 5 seconds of load time each time you want to tie up your partner? It should be fixed!
 
 List of commands :
 * /hugadd (Member Number): Add the specified member to be hugged on sight.

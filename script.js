@@ -1,4 +1,4 @@
-const ELA_VERSION = "0.2.3INDEV";
+const ELA_VERSION = "0.2.4INDEV";
 
 window.LoadedError = class extends Error {};
 if (window.ELA_VERSION) {
@@ -676,3 +676,21 @@ var bcModSDK = (function () {
   console.log("Eddii's Little Additions loaded");
 
 })();
+
+var CraftingAppliesToItemCache = {}
+
+function CraftingAppliesToItem(Craft, Item) {
+	if (!Craft || !Item) return false;
+    if (CraftingAppliesToItemCache.hasOwnProperty(Craft.Item)) {
+        if (!CraftingAppliesToItemCache[Craft.Item]) {return false};
+        return CraftingAppliesToItemCache[Craft.Item].find(m => m.Name === Item.Name && m.DynamicGroupName === Item.DynamicGroupName);
+    }
+	const craftAsset = Asset.find(a => a.Name === Craft.Item && a.Group.IsItem());
+    if (!craftAsset) {
+        CraftingAppliesToItemCache[Craft.Item] = false;
+        return false;
+    };
+	const matchingAssets = Asset.filter(a => a.Name === craftAsset.Name || a.CraftGroup === craftAsset.Name);
+    CraftingAppliesToItemCache[Craft.Item] = matchingAssets
+	return matchingAssets.find(m => m.Name === Item.Name && m.DynamicGroupName === Item.DynamicGroupName);
+}
