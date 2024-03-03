@@ -1,10 +1,10 @@
-const ELA_VERSION = "0.2.4INDEV";
+const ELA_VERSION = "0.2.5INDEV";
 
 window.LoadedError = class extends Error {};
 if (window.ELA_VERSION) {
   throw new LoadedError("ELA already loaded");
 }
-
+var CraftingAppliesToItemCache = {}
 var bcModSDK = (function () {
   "use strict";
   const e = "1.1.0";
@@ -417,6 +417,11 @@ var bcModSDK = (function () {
     return;
   })
 
+  modApi.patchFunction("CraftingAppliesToItem", {
+    "if (!Craft || !Item) return false;" : "if (!Craft || !Item) return false;if (CraftingAppliesToItemCache.hasOwnProperty(Craft.Item)) { if (!CraftingAppliesToItemCache[Craft.Item]) {return false}; return CraftingAppliesToItemCache[Craft.Item].find(m => m.Name === Item.Name && m.DynamicGroupName === Item.DynamicGroupName);}",
+    "if (!craftAsset) return false;" : "if (!craftAsset) { CraftingAppliesToItemCache[Craft.Item] = false; return false; };",
+    "matchingAssets = Asset.filter(a => a.Name === craftAsset.Name || a.CraftGroup === craftAsset.Name);" : "matchingAssets = Asset.filter(a => a.Name === craftAsset.Name || a.CraftGroup === craftAsset.Name); CraftingAppliesToItemCache[Craft.Item] = matchingAssets;"
+  })
   function makeHugPacket(target) {
     return {
         Content: "Beep",
@@ -676,21 +681,3 @@ var bcModSDK = (function () {
   console.log("Eddii's Little Additions loaded");
 
 })();
-
-var CraftingAppliesToItemCache = {}
-
-function CraftingAppliesToItem(Craft, Item) {
-	if (!Craft || !Item) return false;
-    if (CraftingAppliesToItemCache.hasOwnProperty(Craft.Item)) {
-        if (!CraftingAppliesToItemCache[Craft.Item]) {return false};
-        return CraftingAppliesToItemCache[Craft.Item].find(m => m.Name === Item.Name && m.DynamicGroupName === Item.DynamicGroupName);
-    }
-	const craftAsset = Asset.find(a => a.Name === Craft.Item && a.Group.IsItem());
-    if (!craftAsset) {
-        CraftingAppliesToItemCache[Craft.Item] = false;
-        return false;
-    };
-	const matchingAssets = Asset.filter(a => a.Name === craftAsset.Name || a.CraftGroup === craftAsset.Name);
-    CraftingAppliesToItemCache[Craft.Item] = matchingAssets
-	return matchingAssets.find(m => m.Name === Item.Name && m.DynamicGroupName === Item.DynamicGroupName);
-}
