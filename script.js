@@ -1,10 +1,9 @@
-const ELA_VERSION = "0.2.5INDEV";
+const ELA_VERSION = "0.2.6INDEV";
 
 window.LoadedError = class extends Error {};
 if (window.ELA_VERSION) {
   throw new LoadedError("ELA already loaded");
 }
-var CraftingAppliesToItemCache = {}
 var bcModSDK = (function () {
   "use strict";
   const e = "1.1.0";
@@ -415,12 +414,6 @@ var bcModSDK = (function () {
     }
     next(args);
     return;
-  })
-
-  modApi.patchFunction("CraftingAppliesToItem", {
-    "if (!Craft || !Item) return false;" : "if (!Craft || !Item) return false;if (CraftingAppliesToItemCache.hasOwnProperty(Craft.Item)) { if (!CraftingAppliesToItemCache[Craft.Item]) {return false}; return CraftingAppliesToItemCache[Craft.Item].find(m => m.Name === Item.Name && m.DynamicGroupName === Item.DynamicGroupName);}",
-    "if (!craftAsset) return false;" : "if (!craftAsset) { CraftingAppliesToItemCache[Craft.Item] = false; return false; };",
-    "matchingAssets = Asset.filter(a => a.Name === craftAsset.Name || a.CraftGroup === craftAsset.Name);" : "matchingAssets = Asset.filter(a => a.Name === craftAsset.Name || a.CraftGroup === craftAsset.Name); CraftingAppliesToItemCache[Craft.Item] = matchingAssets;"
   })
   function makeHugPacket(target) {
     return {
