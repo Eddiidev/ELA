@@ -16,7 +16,7 @@ Or
 javascript:(()=>{fetch('https://eddiidev.github.io/ELA/script.js').then(r=>r.text()).then(r=>eval(r));})();
 ```
 
-That being said, there is currently only 3 feature : An auto-hug feature, an animation limiter, and a patch for menu lags!
+That being said, there is currently only 3 feature : An auto-hug feature, an animation limiter!
 Jump on your desired targets and grab them for a big hug when they enter the room!
 Futuristic Crates turns your game into a 5 fps slideshow? Here comes the animation limiter!
 
