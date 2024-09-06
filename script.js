@@ -1,4 +1,4 @@
-const ELA_VERSION = "0.2.7INDEV";
+const ELA_VERSION = "0.2.8INDEV";
 
 window.LoadedError = class extends Error {};
 if (window.ELA_VERSION) {
@@ -11,7 +11,7 @@ var bcModSDK=function(){"use strict";const o="1.2.0";function e(o){alert("Mod ER
 var ELAstruggleStrength = 1;
 
 (async function () {
-  const modApi = bcModSDK.registerMod({
+  const modApi = bcModSDK.registerMod({ 
     name: "ELA",
     fullName: "Eddii's Little Additions",
     version: ELA_VERSION,
@@ -60,6 +60,7 @@ var ELAstruggleStrength = 1;
     return;
   })
   function makeHugPacket(target) {
+    let pronoun = Player.BCAR?.bcarSettings?.genderDefault?.capPossessive ? Player.BCAR?.bcarSettings?.genderDefault?.capPossessive.toLowerCase() : CharacterPronoun(Player, "Possessive", false); 
     return {
         Content: "Beep",
         Type: "Action",
@@ -68,10 +69,12 @@ var ELAstruggleStrength = 1;
             { Tag: "Beep", Text: "msg" },
             { Tag: "Biep", Text: "msg" },
             { Tag: "Sonner", Text: "msg" },
-            { Tag: "msg", Text: CharacterNickname(Player) + " jumps on " + CharacterNickname(target) + " for a big hug."}
+            //{ Tag: "msg", Text: CharacterNickname(Player) + " jumps on " + CharacterNickname(target) + " for a big hug."},
+            { Tag: "msg", Text: CharacterNickname(Player) + " wraps " + pronoun + " arms around " + CharacterNickname(target) + " for a big hug."}
         ]
     }   
   }
+
   function makeGrabPacket(target) {
     return {
         Content: "ChatOther-ItemArms-Grope",
@@ -133,6 +136,13 @@ var ELAstruggleStrength = 1;
     });
   }
   */
+
+  function getFormattedName(name, nickname) {
+    if (nickname) {
+      return nickname + " [" + name + "]"
+    } return name;
+  }
+
   function getSettings() {
     if (Player.ExtensionSettings.ELA !== undefined) {
       settings = JSON.parse(Player.ExtensionSettings.ELA)
@@ -155,7 +165,7 @@ var ELAstruggleStrength = 1;
   }
 
   function pushSettings() {
-    settings = {"autoHuggedMembers" : autoHuggedMembers, "hugOnceMembers" : hugOnceMembers, "hugDelay" : hugDelay, "animationLimit": animationLimit}
+    settings = {"autoHuggedMembers" : autoHuggedMembers, "hugOnceMembers" : hugOnceMembers, "hugDelay" : hugDelay, "animationLimit": animationLimit, "struggleStrength": ELAstruggleStrength}
     Player.ExtensionSettings.ELA = JSON.stringify(settings);
     ServerPlayerExtensionSettingsSync("ELA");
   }
@@ -332,6 +342,46 @@ var ELAstruggleStrength = 1;
             ChatRoomSendLocal("<p style='background-color:#FF4040;color:#000000'>[ELA] Couldn't understand the animation limit status entered.</p>")
           }
   }])
+
+
+
+  CommandCombine([{
+    Tag: 'hug',
+    Description: "(Name): Give a nice warm hug !",
+    Action: (args) => {
+            if (!args) {
+              ChatRoomSendLocal("[ELA] Need to specify a target.")
+            }
+            let targetName = args;
+            console.log(targetName)
+            let chatRoomMembers = ChatRoomCharacter.map((x) => {return [x.Nickname, x.Name, x]});
+            console.log(chatRoomMembers)
+            let targets = new Set();
+            for (currentTarget of chatRoomMembers) {
+              if (currentTarget[0]) {
+                if (currentTarget[0].toLowerCase().includes(targetName.toLowerCase())) {
+                  targets.add(currentTarget[2])
+                }
+              } 
+              if (currentTarget[1].toLowerCase().includes(targetName.toLowerCase())) {
+                targets.add(currentTarget[2])
+              }
+            }
+            if (targets.size == 0) {
+              console.log(targets)
+              ChatRoomSendLocal("[ELA] No target found.")
+              return
+            }
+
+            if (targets.size > 1) {
+              ChatRoomSendLocal("[ELA] Too many possible targets to hug :" + Array.from(targets.values()).map((x) => " " + getFormattedName(x.Name, x.Nickname)).toString())
+              return
+            }
+            ServerSend("ChatRoomChat", makeHugPacket(targets.values().next().value))
+          }
+  }])
+
+
   async function waitFor(func, cancelFunc = () => false) {
     while (!func()) {
       if (cancelFunc()) return false;
@@ -343,6 +393,6 @@ var ELAstruggleStrength = 1;
   function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
-  console.log("Eddii's Little Additions loaded");
+  console.log("Eddii's Little Additions " + ELA_VERSION + " loaded");
 
 })();
