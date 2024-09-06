@@ -70,7 +70,7 @@ var ELAstruggleStrength = 1;
             { Tag: "Biep", Text: "msg" },
             { Tag: "Sonner", Text: "msg" },
             //{ Tag: "msg", Text: CharacterNickname(Player) + " jumps on " + CharacterNickname(target) + " for a big hug."},
-            { Tag: "msg", Text: CharacterNickname(Player) + " wraps " + pronoun + " arms around " + CharacterNickname(target) + " for a big hug."}
+            { Tag: "msg", Text: CharacterNickname(Player) + " wraps " + pronoun + " arms around " + CharacterNickname(target) + " for a big warm hug."}
         ]
     }   
   }
