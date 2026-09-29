@@ -74,7 +74,6 @@
         } catch (e) {
             console.error("ELB: Error preparing webhook payload:", e)
         }
-    console.log("ELB: InventoryWear hook called with args:", args);
     return next(args);
     })
 
