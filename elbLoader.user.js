@@ -1,0 +1,26 @@
+// ==UserScript==
+// @name ELB
+// @namespace https://www.bondageprojects.com/
+// @version 0.1INDEV
+// @description Eddii's Little Backups
+// @author Eddii
+// @match https://bondageprojects.elementfx.com/*
+// @match https://www.bondageprojects.elementfx.com/*
+// @match https://bondage-europe.com/*
+// @match https://www.bondage-europe.com/*
+// @match https://bondage-asia.com/club/*
+// @match https://www.bondage-asia.com/club/*
+// @match https://bondageprojects.com/*
+// @match https://www.bondageprojects.com/*
+// @run-at document-end
+// @grant none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+    var script = document.createElement("script");
+    script.language = "JavaScript";
+    script.setAttribute("crossorigin", "anonymous");
+    script.src = `https://eddiidev.github.io/ELA/elb.js?{Date.now()}`;
+    document.head.appendChild(script);
+})();
